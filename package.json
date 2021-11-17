@@ -1,0 +1,16 @@
+{
+  "name": "floorbot",
+  "version": "1.0.0",
+  "description": "Discord Floor Bot the determine floor prices of Opensea.io collections.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "discord.js": "^13.3.1",
+    "dotenv": "^8.6.0"
+  }
+}
