@@ -13,21 +13,18 @@ client.once('ready', () => {
     console.debug('Floor Bot loaded!')
 });
 
+// Get whitelist and channel list from .env
+let botChannelWhitelist = process.env.BOT_CHANNEL_WHITELIST.split(",");
+let nftProjects = process.env.NFT_PROJECT_LIST.split(",");
+
 // ###
 // EDIT YOUR SETTINGS HERE - BEGIN
 // ###
-// Add your desired projects here
-let nftProjects = [
-    'boredapeyachtclub',
-    'thecryptodads',
-    'lazy-lions'
-];
-
 // Add your Discord channel name to OpenSea collection-slug mapping here
 let channelMapping = {
-    '🦍boredapes':'boredapeyachtclub',
-    '👨cryptodads':'thecryptodads',
-    '🦁lazy-lions':'lazy-lions'
+    '🦍boredapes':['boredapeyachtclub','mutant-ape-yacht-club','bored-ape-kennel-club'],
+    '👨cryptodads':['thecryptodads'],
+    '🦁lazy-lions':['lazy-lions']
 }
 // ###
 // EDIT YOUR SETTINGS HERE - END
@@ -63,7 +60,13 @@ sendMessages = (request,message) => {
         })
     }).catch(function (error) {
         if (error.response) {
-            message.channel.send(`:monkey_face: **${error.response.status}**`);
+            let errorMessage = `:monkey_face: **404**: Collection not found. Please enter Opensea URL-slug. (example: boredapesyachtclub)`;
+            
+            if(error.response.status !== 404){
+                errorMessage = `:monkey_face: **${error.response.status}**`;
+            }
+
+            message.channel.send(`${errorMessage}`);
         } else if (error.request) {
             message.channel.send(`:monkey_face: **Request Error**`);
         } else {
@@ -90,23 +93,26 @@ client.on('messageCreate', message => {
         
         // Store message arguments in array
         let args = message.content.slice(prefix.length+1).trim().split(' ');
-
-        if(args[0] === '' || args[0] === 'channel'){
+        console.debug(botChannelWhitelistEnv);
+        console.debug(nftProjectsEnv);
+        if(botChannelWhitelist.includes(`${message.channel.name}`) && args[0] !== 'all'){
+            // If !floor <string> retrieve custom projects floor price
+            callFloor(args[0], message);
+        }else if(args[0] !== 'all'){
             // If !floor or !floor channel use the channelname mapping to retrieve floor price
             channelCollection = channelMapping[`${message.channel.name}`];
             // If no matching mapping pair is found, load all defined collections
             if(channelCollection === undefined){
                 callFloor('', message);
             }else{
-                callFloor(`${channelCollection}`, message);
+                channelCollection.forEach((collection,index) => {
+                    callFloor(`${collection}`, message);
+                })
             }
-        }else if(args[0] === 'all'){
+        }else{
             // If !floor all use all given collections to retrieve floor price
             callFloor('', message);
-        }else{
-            // If !floor <string> retrieve custom projects floor price
-            callFloor(args[0], message);
-        }
+        } 
     }
 });
 

@@ -13,11 +13,10 @@ To get the current channels floor prices (mapping in index.js required) or prede
  `!floor <collection-slug>`
  
  ## Self Hosting
- If you would like to host the bot yourself, first set up a Discord bot through the Discord Developer portal. Also obtain an API key from 
- [OpenSea.io](https://docs.opensea.io/reference/request-an-api-key). Next, pull this repository onto your local machine:<br />
+ If you would like to host the bot yourself, first set up a Discord bot through the Discord Developer portal. Next, pull this repository onto your local machine:<br />
  `git clone <git_url>`
  <br>
- Open the .env file, and imput your API keys in the correct spaces.
+ Open the .env file, and imput your API key in the correct space.
  <br />
  Next, ensure that you have NodeJS and NPM installed and run:
  <br />
