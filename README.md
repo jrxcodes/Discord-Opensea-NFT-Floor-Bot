@@ -4,16 +4,20 @@ A discord bot for keeping track of collections floor prices.
 ## Usage
 To Invite the bot to your server, use the [Discord invite link](https://discord.com/api/oauth2/authorize?client_id=910199554111078440&permissions=377957128192&scope=bot).
 <br />
-To get the current channels floor prices (mapping in index.js required) or predefined collection floor prices, use the command:
+To get the current channels floor prices (see mapping in index.js, if other projects are needed setup the bot for your own, see below) , use the command:
 <br />
  `!floor`
  <br />
+To get  predefined collection floor prices, use the command:
+<br />
+`!floor all`
+<br />
  To get specific collection floor prices, use the command:
  <br />
  `!floor <collection-slug>`
  
  ## Self Hosting
- If you would like to host the bot yourself, first set up a Discord bot through the Discord Developer portal. Next, pull this repository onto your local machine:<br />
+ If you would like to host the bot yourself, first set up a Discord bot through the Discord Developer portal and add the token to the .env file (DISCORD_TOKEN). Next, pull this repository onto your local machine:<br />
  `git clone <git_url>`
  <br>
  Open the .env file, and imput your API key in the correct space.
@@ -25,3 +29,5 @@ To get the current channels floor prices (mapping in index.js required) or prede
  `node .`
  <br />
  Congratulations! You now have a running Discord floor price bot.
+
+This bot is inspired by https://github.com/ncitron/GasBot

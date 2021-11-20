@@ -1,5 +1,5 @@
 // Add required libs
-const { Client, Intents, MessageEmbed } = require('discord.js');
+const { Client, Intents } = require('discord.js');
 const axios = require('axios');
 
 // Initialise Discord client
@@ -30,8 +30,6 @@ let channelMapping = {
 // EDIT YOUR SETTINGS HERE - END
 // ###
 
-let projects = new Map();
-
 // Function to retrieve opensea floor prices for collections
 getFloor = (customProjects) => {
     // Define api endpoint base for opensea collections
@@ -43,7 +41,7 @@ getFloor = (customProjects) => {
         requests.push([customProjects,`${requestBase}/${customProjects}/stats`]);
     }else{
         // If user not specifies a project, return the stored projects stats
-        nftProjects.forEach((projects, index) => {
+        nftProjects.forEach((projects) => {
             requests.push([projects,`${requestBase}/${projects}/stats`]);
         })
     }
@@ -79,7 +77,7 @@ callFloor = (collection, message) => {
     // Call floor function to send floor information as discord message
     let floorRequests = getFloor(collection);
 
-    floorRequests.forEach((request, index) => {
+    floorRequests.forEach((request) => {
         sendMessages(request,message);
     })
 }
@@ -93,26 +91,28 @@ client.on('messageCreate', message => {
         
         // Store message arguments in array
         let args = message.content.slice(prefix.length+1).trim().split(' ');
-        console.debug(botChannelWhitelistEnv);
-        console.debug(nftProjectsEnv);
+
+        // If channel is whitelisted, allow custom project retrieving
         if(botChannelWhitelist.includes(`${message.channel.name}`) && args[0] !== 'all'){
             // If !floor <string> retrieve custom projects floor price
             callFloor(args[0], message);
         }else if(args[0] !== 'all'){
-            // If !floor or !floor channel use the channelname mapping to retrieve floor price
-            channelCollection = channelMapping[`${message.channel.name}`];
-            // If no matching mapping pair is found, load all defined collections
+            let channelCollection = channelMapping[`${message.channel.name}`];
+            // If no matching mapping pair is found, load all defined collections from .env
             if(channelCollection === undefined){
                 callFloor('', message);
             }else{
-                channelCollection.forEach((collection,index) => {
+                // If !floor use the channelname mapping to retrieve floor price
+                channelCollection.forEach((collection) => {
                     callFloor(`${collection}`, message);
                 })
             }
-        }else{
+        }else if (args[0] === 'all' && botChannelWhitelist.includes(`${message.channel.name}`)){
             // If !floor all use all given collections to retrieve floor price
             callFloor('', message);
-        } 
+        }else{
+            message.channel.send(`:monkey_face: **Channel restricted** Please move to your Discords bot channel.`);
+        }
     }
 });
 
