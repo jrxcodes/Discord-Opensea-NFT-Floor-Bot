@@ -28,6 +28,10 @@ To get  predefined collection floor prices, use the command:
  <br />
  `node .`
  <br />
+If you want to be just a little bit more advanced, I suggest you to use pm2 for your bot. If you want to run your bot with load balanced instances, you can use the command:
+`pm2 start index.js -i 4`
  Congratulations! You now have a running Discord floor price bot.
+
+If you want to say thank you, you can find me on Twitter @jrxcodes. The tipping feature in Bitcoin on Twitter is active, if you feel like it, I would really appreciate a tip/donation.
 
 This bot is inspired by https://github.com/ncitron/GasBot
