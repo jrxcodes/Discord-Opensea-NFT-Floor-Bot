@@ -1,4 +1,4 @@
-# Discord NFT FloorBot for Opensea collections
+# Discord NFT Floor Bot for Opensea collections
 A discord bot for keeping track of your opensea collections floor prices.
 
 ## Usage
