@@ -26,6 +26,8 @@ let channelMapping = {
     '👨cryptodads': ['thecryptodads'],
     '🦁lazy-lions': ['lazy-lions']
 }
+const notFoundError = `:monkey_face: **404**: Collection not found. Please enter Opensea URL-slug. (example: boredapesyachtclub)`;
+const restrictedError = `:monkey_face: **Channel restricted** Please move to your Discords bot channel.`;
 // ###
 // EDIT YOUR SETTINGS HERE - END
 // ###
@@ -63,7 +65,7 @@ sendMessages = (request, message) => {
     }).catch(function (error) {
         // Catch errors
         if (error.response) {
-            let errorMessage = `:monkey_face: **404**: Collection not found. Please enter Opensea URL-slug. (example: boredapesyachtclub)`;
+            let errorMessage = notFoundError;
             // If statuscode is different from 404, send the statuscode to the user.
             if (error.response.status !== 404) {
                 errorMessage = `:monkey_face: **${error.response.status}** Please try again later.`;
@@ -102,11 +104,13 @@ client.on('messageCreate', message => {
         if (botChannelWhitelist.includes(`${message.channel.name}`) && args[0] !== 'all') {
             // If !floor <string> retrieve custom projects floor price
             callFloor(args[0], message);
-        } else if (args[0] !== 'all') {
+        } else if (args[0] === '') {
             let channelCollection = channelMapping[`${message.channel.name}`];
             // If no matching mapping pair is found, load all defined collections from .env
             if (channelCollection === undefined) {
-                callFloor('', message);
+                //callFloor('', message); // If you want to send the predefined projects floor prices
+                console.debug(restrictedError); // If you want to prevent spam in not whitelisted channels
+                //message.channel.send(restrictedError); // If you want to send an error to the channel
             } else {
                 // If !floor use the channelname mapping to retrieve floor price
                 channelCollection.forEach((collection) => {
@@ -117,8 +121,10 @@ client.on('messageCreate', message => {
             // If !floor all use all given collections to retrieve floor price
             callFloor('', message);
         } else {
-            // If !floor all is called in a not whitelisted channel, send error message to user.
-            message.channel.send(`:monkey_face: **Channel restricted** Please move to your Discords bot channel.`);
+            // If !floor all is called in a not whitelisted channel
+            //callFloor('', message); // If you want to send the predefined projects floor prices
+            console.debug(restrictedError); // If you want to prevent spam in not whitelisted channels
+            //message.channel.send(restrictedError); // If you want to send an error to the channel
         }
     }
 });
