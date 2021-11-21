@@ -1,5 +1,5 @@
-# FloorBot
-A discord bot for keeping track of collections floor prices.
+# Discord NFT FloorBot for Opensea collections
+A discord bot for keeping track of your opensea collections floor prices.
 
 ## Usage
 To Invite the bot to your server, use the [Discord invite link](https://discord.com/api/oauth2/authorize?client_id=910199554111078440&permissions=377957128192&scope=bot).
