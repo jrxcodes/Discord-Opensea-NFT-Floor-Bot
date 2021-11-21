@@ -32,6 +32,8 @@ If you want to be just a little bit more advanced, I suggest you to use pm2 for 
 `pm2 start index.js -i 4`
  Congratulations! You now have a running Discord floor price bot.
 
-If you want to say thank you, you can find me on Twitter @jrxcodes. The tipping feature in Bitcoin on Twitter is active, if you feel like it, I would really appreciate a tip/donation.
+If you want to say thank you, you can find me on Twitter @jrxcodes. 
+The tipping feature in Bitcoin on Twitter is active, if you feel like it, I would really appreciate a tip/donation.
+If the Ethereum network is your way to go, here is my tip wallet address: 0x0A5F16827d39f8c9227bbeE728FAeD7de12be807
 
 This bot is inspired by https://github.com/ncitron/GasBot
