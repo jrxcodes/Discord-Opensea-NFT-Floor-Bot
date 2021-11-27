@@ -24,7 +24,8 @@ let nftProjects = process.env.NFT_PROJECT_LIST.split(",");
 let channelMapping = {
     '🦍boredapes': ['boredapeyachtclub', 'mutant-ape-yacht-club', 'bored-ape-kennel-club'],
     '👨cryptodads': ['thecryptodads'],
-    '🦁lazy-lions': ['lazy-lions']
+    '🦁lazy-lions': ['lazy-lions'],
+    '🦁 | general': ['thecheekylionclub ']
 }
 const notFoundError = `:monkey_face: **404**: Collection not found. Please enter Opensea URL-slug. (example: boredapesyachtclub)`;
 const restrictedError = `:monkey_face: **Channel restricted** Please move to your Discords bot channel.`;
