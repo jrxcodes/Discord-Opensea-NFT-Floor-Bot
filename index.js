@@ -23,6 +23,7 @@ let nftProjects = process.env.NFT_PROJECT_LIST.split(",");
 // Add your Discord channel name to OpenSea collection-slug mapping here
 let channelMapping = {
     '🦍boredapes': ['boredapeyachtclub', 'mutant-ape-yacht-club', 'bored-ape-kennel-club'],
+    '🧬clone-x': ['clonex','clonex-mintvial'],
     '👨cryptodads': ['thecryptodads'],
     '🦁lazy-lions': ['lazy-lions'],
     '🦁 | general': ['thecheekylionclub']
