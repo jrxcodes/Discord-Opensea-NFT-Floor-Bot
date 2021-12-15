@@ -8,11 +8,7 @@ To get the current channels floor prices (see mapping in index.js, if other proj
 <br />
  `!floor`
  <br />
-To get  predefined collection floor prices, use the command:
-<br />
-`!floor all`
-<br />
- To get specific collection floor prices, use the command:
+ To get specific collection floor prices in whitelisted channels, use the command:
  <br />
  `!floor <collection-slug>`
  

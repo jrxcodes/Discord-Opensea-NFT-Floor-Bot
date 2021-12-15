@@ -62,7 +62,11 @@ sendMessages = (request, message) => {
         let collectionRequest = `https://api.opensea.io/api/v1/collection/${request[0]}`;
         axios.get(collectionRequest).then(result => {
             // Send floor price info to channel
-            message.channel.send(`:small_red_triangle_down: **${result.data.collection.name}** Floor Price: ${floorPrice}ETH`);
+            if(floorPrice !== null){
+                message.channel.send(`:small_red_triangle_down: **${result.data.collection.name}** Floor Price: ${floorPrice}ETH`);
+            }else{
+                message.channel.send(`:small_red_triangle_down: **${result.data.collection.name}** No sales on OpenSea. Can't calculate floor.`);
+            }
         })
     }).catch(function (error) {
         // Catch errors
@@ -101,7 +105,7 @@ client.on('messageCreate', message => {
 
         // Store message arguments in array
         let args = message.content.slice(prefix.length + 1).trim().split(' ');
-
+        console.debug(`${message.channel.name}`);
         // If channel is whitelisted, allow custom project retrieving
         if (botChannelWhitelist.includes(`${message.channel.name}`) && args[0] !== 'all') {
             // If !floor <string> retrieve custom projects floor price
